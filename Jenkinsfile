@@ -56,7 +56,7 @@ pipeline {
                 echo "- Proyect: ${ARTIFACT_ID}-${VERSION}"
                 echo "- Environmen: ${BRANCH_NAME}"
                 sh '''#!/bin/bash
-                    sh ./aws-deployment/env-dev/push_ecr_repo.sh $DOCKERFILE_PATH $JAR_PATH $JAR_NAME $AWS_REGION $ECR_URL $ECR_REPO_NAME $DOCKER_TAG $BRANCH_NAME
+                    sh ./push_ecr_repo.sh $DOCKERFILE_PATH $JAR_PATH $JAR_NAME $AWS_REGION $ECR_URL $ECR_REPO_NAME $DOCKER_TAG $BRANCH_NAME
                 '''
                 echo "Image published"
             }
@@ -68,7 +68,7 @@ pipeline {
             steps {
                 echo "Updating ECS Service..."
                 sh '''#!/bin/bash
-                    sh ./aws-deployment/env-dev/update_service.sh $AWS_REGION $ECR_URL $ECS_CLUSTER_NAME $ECS_SERVICE_NAME
+                    sh ./update_service.sh $AWS_REGION $ECR_URL $ECS_CLUSTER_NAME $ECS_SERVICE_NAME
                 '''
                 echo "Service updated"
             }
